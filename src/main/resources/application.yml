@@ -1,0 +1,21 @@
+spring:
+  datasource:
+    url: jdbc:h2:tcp://localhost/~/report-troller;MVCC=TRUE
+    username:sa
+    password:
+    driver-class-name: org.h2.Driver
+
+
+  jpa:
+    hibernate:
+      ddl-auto: create #database 자동 생성
+    properties:
+      hibernate:
+#        show_sql:true #실제 운영환경에서는 sout 이거 쓰면안됨!
+        format_sql:true
+
+logging:
+  level:
+    org.hibernate.SQL: debug #로거로 찍어야 함.
+
+
