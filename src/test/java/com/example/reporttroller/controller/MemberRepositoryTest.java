@@ -24,6 +24,7 @@ public class MemberRepositoryTest {
     public void testMember() throws Exception{
 
         //given
+        /*
         Member member = new Member();
         member.setUsername("memberA");
 
@@ -38,6 +39,8 @@ public class MemberRepositoryTest {
         Assertions.assertThat(findMember).isEqualTo(member);
         System.out.println("findmember == member : "+(findMember==member));
         //findMember == member
+
+         */
     }
 
 
