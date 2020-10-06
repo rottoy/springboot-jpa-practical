@@ -1,6 +1,8 @@
 package com.example.reporttroller.entity;
 
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -11,6 +13,7 @@ import java.util.ArrayList;
 @Entity
 @Table(name = "orders") //명시안하면 order랑 겹치고 후에 오류남
 @Getter @Setter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Order {
 
     @Id @GeneratedValue
@@ -49,5 +52,45 @@ public class Order {
     public void setDelivery(Delivery delivery){
         this.delivery = delivery;
         delivery.setOrder(this);
+    }
+
+    //==생성 메서드==//
+    public static Order createOrder(Member member, Delivery delivery, OrderItem... orderItems){
+        Order order=new Order();
+        order.setMember(member);
+        order.setDelivery(delivery);
+        for(OrderItem orderItem : orderItems){
+            order.addOrderItem(orderItem);
+        }
+        order.setStatus(OrderStatus.ORDER);
+        order.setOrderDate(LocalDateTime.now());
+
+        return order;
+    }
+
+    //==비즈니스 로직==//
+    public void cancel(){
+        if(delivery.getStatus()==DeliveryStatus.COMP){
+            throw new IllegalStateException("이미 배송완료된 상품은 취소가 불가능 합니다.");
+        }
+
+        this.setStatus(OrderStatus.CANCEL);
+
+        //재고를 원상복구 시키기
+        //모든 orderItem에 대해 취소 요청.
+        for(OrderItem orderItem: orderItems){
+            orderItem.cancel();
+        }
+    }
+
+    //==조회 로직==//
+    /*
+    * 전체 주문 가격 조회
+    * */
+    public int getTotalPrice(){
+        int totalPrice = orderItems.stream()
+                .mapToInt(OrderItem::getTotalPrice)
+                .sum();
+        return totalPrice;
     }
 }

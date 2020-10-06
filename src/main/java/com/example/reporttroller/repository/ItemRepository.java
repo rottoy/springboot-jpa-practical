@@ -20,9 +20,10 @@ public class ItemRepository {
         }
     }
 
-    public Item getItem(Long id){
+    public Item findOne(Long id){
         return em.find(Item.class,id);
     }
+
 
     public List<Item> findAll(){
         return em.createQuery("select i from Item i", Item.class)
