@@ -27,6 +27,7 @@ public class Category {
 
     //계층 구조
 
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "parent_id")
     private Category parent;
 
