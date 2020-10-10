@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import java.util.List;
 
 import javax.validation.Valid;
 
@@ -42,5 +43,13 @@ public class MemberController {
         memberService.join(member);
 
         return "redirect:/";
+    }
+
+    @GetMapping("/members")
+    public String getMemberList(Model model){
+        List<Member> members = memberService.findMembers();
+        model.addAttribute("members",members);
+
+        return "members/memberList";
     }
 }
