@@ -19,5 +19,6 @@ logging:
     org.hibernate.SQL: debug #로거로 찍어야 함.
     #org.hibernate.type: trace
 
-
-
+  thymeleaf:
+  prefix: classpath:/templates/
+  suffix: .html
