@@ -29,7 +29,7 @@ public class ItemController {
     public String create(BookForm bookForm){
         Book item =new Book();
         item.setAuthor(bookForm.getAuthor());
-        item.setStockQuantity(bookForm.getStockQuantity());
+        item.setPrice(bookForm.getPrice());
         item.setName(bookForm.getName());
         item.setIsbn(bookForm.getIsbn());
         item.setStockQuantity(bookForm.getStockQuantity());

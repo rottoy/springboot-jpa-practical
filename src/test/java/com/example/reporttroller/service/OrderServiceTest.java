@@ -8,6 +8,7 @@ import com.example.reporttroller.entity.item.Book;
 import com.example.reporttroller.entity.item.Item;
 import com.example.reporttroller.exception.NotEnoughStockException;
 import com.example.reporttroller.repository.OrderRepository;
+import com.example.reporttroller.repository.OrderSearch;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -110,5 +113,25 @@ public class OrderServiceTest {
         member.setAddress(new Address("서울","경기","123-123"));
         em.persist(member);
         return member;
+    }
+
+    @Test
+    public void OrderSearch로주문() throws Exception{
+       //given
+        Member member=createMember("회원1");
+        Book item = createBook("JPA",10000,10);
+
+        int orderCount=2;
+        Long orderId=orderService.order(member.getId(),item.getId(),orderCount);
+
+
+        OrderSearch orderSearch = new OrderSearch();
+        List<Order> orders = orderService.findOrders(orderSearch);
+
+        System.out.println(orders);
+       //when
+
+       //then
+
     }
 }

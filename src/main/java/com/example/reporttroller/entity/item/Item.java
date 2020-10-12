@@ -4,6 +4,7 @@ import com.example.reporttroller.entity.Category;
 import com.example.reporttroller.exception.NotEnoughStockException;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "DTYPE")
 @Getter @Setter
+@ToString
 public abstract class Item {
 
     @Id

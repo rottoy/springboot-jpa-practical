@@ -1,9 +1,6 @@
 package com.example.reporttroller.entity;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
@@ -13,6 +10,7 @@ import java.util.ArrayList;
 @Entity
 @Table(name = "orders") //명시안하면 order랑 겹치고 후에 오류남
 @Getter @Setter
+@ToString
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Order {
 
@@ -24,12 +22,12 @@ public class Order {
     @JoinColumn(name = "member_id")
     private Member member;
 
-    @OneToMany(mappedBy = "order")
+    @OneToMany(mappedBy = "order",cascade = CascadeType.ALL)
     private List<OrderItem> orderItems= new ArrayList<>();
 
 
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     @JoinColumn(name = "delivery_id")
     private Delivery delivery;
 

@@ -8,10 +8,11 @@ import com.example.reporttroller.entity.item.Item;
 import com.example.reporttroller.repository.ItemRepository;
 import com.example.reporttroller.repository.MemberRepository;
 import com.example.reporttroller.repository.OrderRepository;
+import com.example.reporttroller.repository.OrderSearch;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
+import java.util.List;
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
@@ -55,6 +56,11 @@ public class OrderService {
 
         //주문 취소
        order.cancel();
+    }
+
+
+    public List<Order> findOrders(OrderSearch orderSearch) {
+        return orderRepository.findAllByString(orderSearch);
     }
 
     //검색
