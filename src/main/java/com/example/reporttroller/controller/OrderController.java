@@ -13,10 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityManager;
 import java.sql.SQLOutput;
@@ -77,21 +74,12 @@ public class OrderController {
 
         return "order/orderList";
     }
-    private Book createBook(String name,int price, int stockQuantity) {
-        Book book = new Book();
-        book.setName(name);
-        book.setPrice(price);
-        book.setStockQuantity(stockQuantity);
-        em.persist(book);
-        return book;
-    }
 
+    @PostMapping("/orders/{orderId}/cancel")
+    public String orderCancel(@PathVariable("orderId") Long orderId){
 
-    private Member createMember(String name) {
-        Member member= new Member();
-        member.setName(name);
-        member.setAddress(new Address("서울","경기","123-123"));
-        em.persist(member);
-        return member;
+        orderService.cancelOrder(orderId);
+
+        return "redirect:/orders";
     }
 }
