@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.persistence.criteria.CriteriaQuery;
 import javax.validation.Valid;
 
 @RestController
@@ -22,6 +23,20 @@ public class MemberApiController {
         return new CreateMemberResponse(id);
     }
 
+    @PostMapping("api/v2/members")
+    public CreateMemberResponse saveMemberV2(@RequestBody @Valid MemberRequest request){
+        Member member=new Member();
+        member.setName(request.getName());
+
+        Long id = memberService.join(member);
+        return new CreateMemberResponse(id);
+    }
+
+
+    @Data
+    static class MemberRequest{
+        private String name;
+    }
     @Data
     static class CreateMemberResponse{
         private Long id;
