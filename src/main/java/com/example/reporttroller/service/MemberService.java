@@ -63,4 +63,13 @@ public class MemberService {
     public Member findOne(Long memberId){
         return memberRepository.findOne(memberId);
     }
+
+
+    @Transactional
+    //command 와 query 분리를 위해 return 값 x . 또한 영속성이 끊기는 문제도 발생할 수 있음.
+    //update는 merge 가 아닌 변경감지! -> set하고 냅두기!
+    public void update(Long id, String name) {
+        Member member=memberRepository.findOne(id);
+        member.setName(name);
+    }
 }
