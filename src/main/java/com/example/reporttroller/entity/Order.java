@@ -1,5 +1,6 @@
 package com.example.reporttroller.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -7,6 +8,15 @@ import java.util.List;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+
+/*
+* userA
+*  JPA1 book
+*  JPA2 book
+*
+* userB
+*
+* */
 @Entity
 @Table(name = "orders") //명시안하면 order랑 겹치고 후에 오류남
 @Getter @Setter

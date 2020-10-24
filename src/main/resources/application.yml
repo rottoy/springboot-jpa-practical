@@ -8,7 +8,7 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: none #create : database 자동 생성, none :database 유지
+      ddl-auto: create #create : database 자동 생성, none :database 유지
     properties:
       hibernate:
 #        show_sql:true #실제 운영환경에서는 sout 이거 쓰면안됨!
